@@ -9,7 +9,7 @@ const Sidebar = () => {
     return null;
   }
   return (
-    <div className="col-span-1 h-screen bg-gray-800 text-white p-4 shadow-2xl">
+    <div className="col-span-2 h-screen bg-gray-800 text-white p-4 shadow-2xl fixed w-60">
       <ul>
         <li>Home</li>
         <li>Shorts</li>
