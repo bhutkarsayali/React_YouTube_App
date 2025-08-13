@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
+import { setQuery } from "../utils/searchFilterSlice";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -103,6 +104,11 @@ const Head = () => {
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
+
+  const handleSearch = () => {
+    dispatch(setQuery(searchQuery?.trim().toLowerCase())); // ✅ This calls the function properly
+  };
+
   return (
     <div className="grid grid-flow-col flex items-center justify-between shadow shadow-2xl">
       <div className="flex items-center p-5 col-span-1">
@@ -128,7 +134,10 @@ const Head = () => {
             onBlur={() => setShowSuggestions(false)}
             className="border rounded-l-full border-r-0 border-black/40 px-4 py-2 rounded w-1/2"
           />
-          <button className="px-4 py-2 bg-blue-600 text-white border border-black/40 rounded-r-full hover:bg-blue-700 transition cursor-pointer">
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 bg-blue-600 text-white border border-black/40 rounded-r-full hover:bg-blue-700 transition cursor-pointer"
+          >
             Search
           </button>
         </div>
