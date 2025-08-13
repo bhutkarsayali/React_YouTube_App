@@ -1,4 +1,4 @@
-const commentsData = [
+export const commentsData = [
   {
     name: "Level 1 Sayali Bhutkar",
     text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
