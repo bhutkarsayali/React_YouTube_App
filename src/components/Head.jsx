@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { cacheResults } from "../utils/searchSlice";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   // console.log("searchQuery", searchQuery);
+  const dispatch = useDispatch();
+
+  //to get an accesss to cache, we need to subscribe to that portion of thye store
+  const searchCache = useSelector((store) => store.search);
+  /**
+   * How is my cash will be, something like below object
+   * If I already have results for iphone keyword and that wiil be an array of results
+   * suppose this is object needs to be searched
+   * searchCache = {
+   *  "ipnone" : ["iphone 11", "iphone 14"]
+   * }
+   * searchQuery = iphone
+   */
   // Every time my searchQuery change sI need to make an API call
   useEffect(() => {
     // API call over here will be made on every keystroke.
@@ -23,7 +37,17 @@ const Head = () => {
     // getSearchSuggestions();
 
     //make this api call after 200ms
-    const timer = setTimeout(() => getSearchSuggestions(), 200);
+    const timer = setTimeout(() => {
+      // if it is present in cache then directly set it
+      // How will I check if iphone is present in my searchCache?
+      //if searchCache[searchQuery] is present then return searchCache[searchQuery]
+      if (searchCache[searchQuery]) {
+        setSuggestions(searchCache[searchQuery]);
+      } else {
+        //else make an API call and I should update in my cache
+        getSearchSuggestions();
+      }
+    }, 200);
 
     return () => {
       clearTimeout(timer);
@@ -63,11 +87,19 @@ const Head = () => {
     console.log("API CAll - ", searchQuery);
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
-    console.log("json", json);
-    console.log("json[0]", json[0]);
+    // console.log("json", json);
+    // console.log("json[0]", json[0]);
     setSuggestions(json[1]);
+
+    // Update in my cache using dispatch
+    // i will send an object in an action
+    dispatch(
+      cacheResults({
+        [searchQuery]: json[1],
+      })
+    );
   };
-  const dispatch = useDispatch();
+
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };

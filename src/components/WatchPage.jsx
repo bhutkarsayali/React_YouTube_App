@@ -10,7 +10,7 @@ const WatchPage = () => {
 
   //hence using below hook (check query params in react dom documentation)
   const [searchParams] = useSearchParams();
-  console.log("searchParams", searchParams.get("v"));
+  // console.log("searchParams", searchParams.get("v"));
 
   const dispatch = useDispatch();
   //As soon as this componnent loads we need to hide sidebar by default hence using it in useEffect hook
