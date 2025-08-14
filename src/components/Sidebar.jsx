@@ -15,6 +15,12 @@ const Sidebar = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
+        <li>
+          <Link to="/demo">Hooks Demo</Link>
+        </li>
+        <li>
+          <Link to="/demo2">Hooks Demo2</Link>
+        </li>
         <li>Shorts</li>
         <li>Videos</li>
         <li>Live</li>
