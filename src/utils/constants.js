@@ -1,4 +1,4 @@
-const GOOGLE_API_KEY = "AIzaSyDjjejMoOaVKFS70m22pDqVzZK6y7xCBSQ";
+const GOOGLE_API_KEY = "AIzaSyD5IlAtNyjXx6w--Cxp9rvShVAluWUIzAo";
 export const YOUTUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&key=" +
   GOOGLE_API_KEY;
